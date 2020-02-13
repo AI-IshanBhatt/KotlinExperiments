@@ -66,6 +66,7 @@ fun evalDummy(e: Expr): Int {  // Can't be inferred as it contains multiple line
 
 // Here return type is needed otherwise the function will go in infinite recursion
 // https://kotlinlang.org/docs/reference/functions.html#explicit-return-types
+// Smart casts work only for variables that couldn’t have changed after the type check.
 fun eval(e: Expr): Int =
     when (e) {
         is Num -> e.value  // Be assured that the cast is performed automatically using is
