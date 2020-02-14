@@ -1,0 +1,37 @@
+---------------------------------------------------------------------
+Modifier            ClassMember             Top-Level-Declaration   -
+public (default)    Visible everywhere      Visible everywhere      -
+internal            Visible in a module     Visible in a module     -
+protected           Visible in subclasses   NOT POSSIBLE            -
+private             Visible in a class      Visible in a file       -
+---------------------------------------------------------------------
+
+Kotlin allows the use of private visibility for top-level declarations, including classes, functions, and properties.
+Such declarations are visible only in the file where they are declared.
+
+internal open class TalkativeButton : Focusable {
+    private fun yell() = println("Hey!")
+    protected fun whisper() = println("Let's talk!")
+}
+
+// As giveSpeech() is a public function(default), It can not reference a more restrictive type internal.
+// To solve the problem, you can either make the function internal or make the class public.
+fun TalkativeButton.giveSpeech() {  // Here
+    yell()  // Can not access yell as it is private (Only visible in class)
+    whisper()  // Can not access whisper as it is protected so it can be used in the subclass not extension function.
+}
+
+In Java protected means a member from the same package, but Kotlin doesn't allow that.
+In Kotlin visibility rules are simple and a protected member is only visible in the class and its subclasses
+Extension functions of a class don’t get access to its private or protected members.
+
+One more difference in visibility rules between Kotlin and Java is that an outer class
+doesn’t see private members of its inner (or nested) classes in Kotlin.
+
+------------------------------------------------------------------------------------------------------------------
+Nested class and Inner class correspondence                                                                      -
+------------------------------------------------------------------------------------------------------------------
+Class A declared within another class B                         In Java             In Kotlin                    -
+Nested class (doesn’t store a reference to an outer class)      static class A      class A                      -
+Inner class (stores a reference to an outer class)              class A             inner class A                -
+------------------------------------------------------------------------------------------------------------------
