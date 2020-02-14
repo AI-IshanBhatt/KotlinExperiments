@@ -35,3 +35,8 @@ Class A declared within another class B                         In Java         
 Nested class (doesn’t store a reference to an outer class)      static class A      class A                      -
 Inner class (stores a reference to an outer class)              class A             inner class A                -
 ------------------------------------------------------------------------------------------------------------------
+
+Sealed Classes
+Always having to add a default branch isn’t convenient. What’s more, if you add a
+new subclass, the compiler won’t detect that something has changed. If you forget to
+add a new branch, the default one will be chosen, which can lead to subtle bugs.
