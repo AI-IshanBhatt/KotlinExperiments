@@ -1,0 +1,21 @@
+2 types of properties
+1) properties that store values and
+2) properties with custom accessors that calculate values on every access.
+
+We can combine them and implement a property that stores a value and provides additional logic
+that's executed when the value is accessed or modified.
+
+To support that, you need to be able to access the property’s backing field from its accessors.
+
+What is the difference between making a property that has a backing field and the one that doesn't ?
+- The way you access the property doesn't depend on whether it has a backing field.
+- The compiler will generate the backing field for the
+  property if you either reference it explicitly or use the default accessor implementation.
+  (That means you don't provide getter and setter, then backing field will be generated)
+- The idea here is that if you do not reference it explicitly and code getter and setter for the property, no backing field will be generated.
+- They will be computed every-time you access it.
+- If you provide custom accessor implementations that don’t use field (for the
+  getter if the property is a val and for both accessors if it’s a mutable property), the
+  backing field won’t be present.
+
+Code in AnotherUser.kt
