@@ -1,0 +1,21 @@
+- Object declaration is a way to define a singleton.
+- Companion objects can contain factory methods and other methods that are
+related to this class but don’t require a class instance to be called. Their members can be accessed via class name.
+- Object expression is used instead of Java’s anonymous inner class.
+
+Just like a class, an object declaration can contain declarations of properties, methods,
+initializer blocks, and so on. The only things that aren’t allowed are constructors
+(either primary or secondary). As they are singleton it doesn't make sense to have any constructor.
+They are instantiated as soon as they are declared.
+
+---------------------------------------COMPANION OBJECT----------------------------------------------------
+Classes in Kotlin can’t have static members; Java’s static keyword isn’t part of the Kotlin language.
+If you need to write a function that can be called without having a class instance but needs access to the
+internals of a class, you can write it as a member of an object declaration inside that class.
+
+The companion object has access to all private members of the class,
+including the private constructor, and it’s an ideal candidate to implement the Factory pattern.
+
+----------------------------ANON INNER OBJECT-----------------------------------
+Unlike object declarations, anonymous objects aren't singletons. Every
+time an object expression is executed, a new instance of the object is created.
