@@ -1,0 +1,36 @@
+The ability to treat functions as values. Instead of declaring a class and passing an instance
+of that class to a function, you can pass a function directly.
+With lambda expressions, the code is even more concise. You don’t need to declare a function: instead, you can,
+effectively, pass a block of code directly as a function parameter.
+
+Lambdas
+1) Use functional interface (Interface having only one method)
+2) Use it with collection
+
+Syntax of lambda are similar to the one we used in Java
+{x: Int, y: Int -> x + y}
+
+When using lambda on collection follow the rule of thumb.
+The simple rule you can follow is to always start without the
+types; if the compiler complains, specify them.
+
+If you store a lambda in a variable, there’s no context from which to infer the parameter
+types,
+val getAge = {p: NewPerson -> p.age}
+people.maxBy(getAge)
+
+ACCESSIBILITY RULES
+If you use a lambda in a function, you can access the
+parameters of that function as well as the local variables declared before the lambda.
+
+External variables accessed from a lambda, such as prefix, clientErrors,
+and serverErrors in these examples, are said to be captured by the lambda.
+
+IMP TO NOTE:-
+Note that, by default, the lifetime of a local variable is constrained by the function
+in which the variable is declared. But if it’s captured by the lambda, the code that uses
+this variable can be stored and executed later.
+
+https://stackoverflow.com/questions/32272713/lambda-expression-and-variable-capture
+https://stackoverflow.com/questions/40862845/java-8-lambda-variable-scope
+http://tutorials.jenkov.com/java/lambda-expressions.html#variable-capture
