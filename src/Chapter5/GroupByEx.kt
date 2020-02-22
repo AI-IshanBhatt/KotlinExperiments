@@ -89,4 +89,8 @@ fun main() {
     val typeWithMaxOptions = menu.groupBy { it.type }.mapValues { it.value.size }.maxBy { it.value }?.key
     println(typeWithMaxOptions)
 
+    println("FINDING THE MAXIMUM OCCURRING ELEMENT IN ARRAY")
+    val arr = listOf(1,2,3,4,5,6,7,3,4,2,3,1,4,5,2,7,8,2,3,3,3,3)
+    val maxOccurring = arr.groupBy { it }.mapValues { it.value.size }.maxBy { it.value }?.key
+    println(maxOccurring)
 }
