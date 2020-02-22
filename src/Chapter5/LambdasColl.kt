@@ -19,4 +19,12 @@ fun main() {
     println("FIND PERSON WITH MAX AGE")
     println(people.maxBy { it.age }?.name)  // ? has to be there because maxBy can endup returning null so null check is mandatory here
 
+    val canBeInClub30 = {p: NewPerson -> p.age<=30}
+    println(people.filter(canBeInClub30))  // See how smart the compiler is it knows that this predicate can go in filter
+                                            // As it's signature is NewPerson->boolean so it's perfect for people with filter
+
+    println(people.all(canBeInClub30))
+    println(people.any(canBeInClub30))
+    println(people.count(canBeInClub30))
+    println(people.find { it.age > 50 })  // All can have predicate and returns something, YOy can use find/firstOrNull
 }
