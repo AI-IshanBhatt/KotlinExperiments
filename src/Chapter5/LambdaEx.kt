@@ -70,4 +70,5 @@ fun main() {
     val result = convertor(5.0, {d ->  d*d})  // convertor(x) {d -> d*d}
     println("THe result is $result")
 
+    println("ANSWER IS ${convertor(4.0){d -> d*d}}")
 }
