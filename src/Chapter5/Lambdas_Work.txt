@@ -43,3 +43,16 @@ https://www.reddit.com/r/Kotlin/comments/ee8w45/does_kotlin_take_advantage_of_th
 Concerning oneself with single digit performance differences before the first line is even written is probably not the best way to spend one's time.
 https://blog.jetbrains.com/kotlin/2019/12/what-to-expect-in-kotlin-1-4-and-beyond/
 https://youtrack.jetbrains.com/issue/KT-35625
+
+-----------------------------------WITH APPLY----------------------------------------
+The with function converts its first argument into a receiver of the lambda that’s
+passed as a second argument. You can access this receiver via an explicit 'this' reference.
+Alternatively, as usual for a this reference, you can omit it and access methods
+or properties of this value without any additional qualifiers.
+
+This is also called as Lambda with receiver.
+Works exactly as the extension function
+
+The value returned by with is the result of executing lambda code. The result of last expression in the Lambda.
+Sometimes you want to have receiver object, not the result executing the Lambda.
+USE apply
