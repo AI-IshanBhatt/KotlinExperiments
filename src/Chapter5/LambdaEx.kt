@@ -24,6 +24,9 @@ fun printProblemCounts(responses: Collection<String>) {
     println("$serverErrors SERVER ERRORS")
 }
 
+fun convertor(x: Double, convert: (Double) -> Double): Double {
+    return convert(x)
+}
 
 fun main() {
     val people = listOf(NewPerson("Ishan", 31), NewPerson("Gunjan", 29),
@@ -62,5 +65,9 @@ fun main() {
     // Both of the lines are same
     println(NewPerson("Gunjan", 29).isAdult())
     println(predicate(NewPerson("Gunjan", 29)))
+
+    println("Passing function to function")
+    val result = convertor(5.0, {d ->  d*d})  // convertor(x) {d -> d*d}
+    println("THe result is $result")
 
 }

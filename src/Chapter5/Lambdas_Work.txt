@@ -34,3 +34,12 @@ this variable can be stored and executed later.
 https://stackoverflow.com/questions/32272713/lambda-expression-and-variable-capture
 https://stackoverflow.com/questions/40862845/java-8-lambda-variable-scope
 http://tutorials.jenkov.com/java/lambda-expressions.html#variable-capture
+
+Some useful links about targeting JVM and the bytecode
+https://www.reddit.com/r/Kotlin/comments/eeinhj/is_kotlin_bytecode_compatible_with_java_bytecode/
+https://www.reddit.com/r/Kotlin/comments/c1nxkx/kotlin_stuck_on_byte_code_level_52_java8_what/
+https://www.reddit.com/r/Kotlin/comments/9jpdn1/are_there_any_plans_to_support_java_11_byte_code/
+https://www.reddit.com/r/Kotlin/comments/ee8w45/does_kotlin_take_advantage_of_the_bytecode/ (THIS ONE)
+Concerning oneself with single digit performance differences before the first line is even written is probably not the best way to spend one's time.
+https://blog.jetbrains.com/kotlin/2019/12/what-to-expect-in-kotlin-1-4-and-beyond/
+https://youtrack.jetbrains.com/issue/KT-35625
