@@ -1,0 +1,32 @@
+Kotlin converts these problems from runtime errors into compile-time errors. By supporting nullability as part of the
+type system, the compiler can detect many possible errors during compilation and
+reduce the possibility of having exceptions thrown at runtime.
+
+It’s a way to indicate which variables or properties in your program are allowed to be null. If a
+variable can be null, calling a method on it isn’t safe, because it can cause a
+NullPointerException. Kotlin disallows such calls and thereby prevents many possible exceptions.
+
+What is a DataType ?
+"A type is a classification … that determines the possible values for that type,
+and the operations that can be done on values of that type."
+
+In Java String can hold one of the two kinds of values: String or null, they are very much unrelated.
+
+NOTE Objects of nullable or non-null types at runtime are the same; a
+nullable type isn't a wrapper for a non-null type (Think of Java's Optional). All checks are performed at
+compilation time. That means there's no runtime overhead for working with
+nullable types in Kotlin.
+
+Safce call operator - s?.toUpperCase()
+Elvis operator -
+    country ?: "UNKNOWN"
+    s?.length ?: 0  // COMBINATION
+
+In Kotlin, operations such as return and throw work as expressions and therefore can be used on the operator's
+right side. In that case, if the value on the left side is null, the function will immediately return a value or throw an exception.
+
+Safe-cast
+The as? operator tries to cast a value to the specified type and returns null if the value doesn't have the proper type.
+
+Not-null assetions !!
+It converts any value to it's corresponding not-null type (String? -> String), If it is null then NullPointerException
