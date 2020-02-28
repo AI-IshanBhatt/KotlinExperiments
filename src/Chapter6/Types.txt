@@ -1,0 +1,46 @@
+Kotlin doesn't distinguish between primitive types and wrapper class.
+You can always do
+val i: Int = 1
+val list:List<Int> = listOf(1,5)
+
+At runtime, the number types are represented in the most efficient way possible. In
+most cases—for variables, properties, parameters, and return types—Kotlin’s Int type
+is compiled to the Java primitive type int.
+The only case in which this isn’t possible is generic classes, such as collections.
+A primitive type used as a type argument of ageneric class is compiled to the corresponding Java wrapper type.
+For example, if the Int type is used as a type argument of the collection, then the collection will store
+instances of java.lang.Integer, the corresponding wrapper type.
+
+Integer types — Byte, Short, Int, Long
+Floating-point number types — Float, Double
+Character type — Char
+Boolean type — Boolean
+
+Nullable types in Kotlin can't be represented by Java primitive types,
+Because null can only be stored in a variable of Java reference type.
+That means whenever you use nullable version of primitive types in Kotlin, it is compiled to wrapper type
+
+The JVM doesn't support using a primitive type as a type argument.
+So a generic class (both in Java and in Kotlin) must always use a boxed representation of the type.
+
+Kotlin doesn't automatically convert numbers from one type to the other, even when the other type is larger.
+
+val i = 1
+val l:Long = i  // Will not work
+val l: Long = i.toLong()  // Explicit conversion is required
+
+val x = 1
+val list = listOf(1L, 2L, 3L)
+x in list  // This one would not even compile, so don't worry about true or false.
+
+Similar to how Object is the root of the class hierarchy in Java,
+Any type is the supertype of all non-nullable types. Be it primitive or wrapper, In Java Object was not related to primitive
+Any? type is the supertype of all nullable types. (Int?, String?)
+
+Unit type in Kotlin is Java's void but the best part , you don't have to declare it
+fun f(): Unit {...} = fun f() {...}
+
+Nothing type
+The compiler knows that a function with this return type never terminates normally and
+uses that information when analyzing the code calling the function.
+
