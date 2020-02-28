@@ -63,6 +63,18 @@ fun ignoreNulls(s: String?) {
     println(sNotNull.length)
 }
 
+fun sendEmailTo(email: String) {
+    println("Sending email to $email")
+}
+
+fun String?.isNullOrBlank() = this?.isBlank() ?: true  // Previously it was this == null || this.isBlank()
+
+// Here T is inferred as Any? ,
+// If you wanted the type param to be non-null define it as <T: Any>, in that cast printHashCode(null) won't work
+fun <T> printHashCode(t: T) {
+    println(t?.hashCode())  // Need to use a safe call because t might be null
+}
+
 fun main() {
 
 //    strLen(null) , this call will not be allowed. Null can not be a value of a non-null type String
@@ -94,4 +106,19 @@ fun main() {
     println(person == anotherPerson)
     println(person.equals(43))  // Need to do with equals and rather than giving some exceptions, it returns false
     println(person == person)
+
+    println("USING THE LET KEYWORD")
+    var email: String? = "ishan@bhatt.com"
+    email?.let { sendEmailTo(it) }  // It turns email into it which can be used in {}
+    email = null
+    email?.let { sendEmailTo(it) }  // Here the email is null so nothing will happen, lambda will not be executed
+
+    // Our extension function was defined on nullable type String? , So it can be called on either of them
+    println(" ".isNullOrBlank())
+    println(null.isNullOrBlank())
+
+    printHashCode(42)
+    printHashCode(null)
+
+
 }

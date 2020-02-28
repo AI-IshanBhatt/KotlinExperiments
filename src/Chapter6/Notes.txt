@@ -17,7 +17,7 @@ nullable type isn't a wrapper for a non-null type (Think of Java's Optional). Al
 compilation time. That means there's no runtime overhead for working with
 nullable types in Kotlin.
 
-Safce call operator - s?.toUpperCase()
+Safe call operator - s?.toUpperCase()
 Elvis operator -
     country ?: "UNKNOWN"
     s?.length ?: 0  // COMBINATION
@@ -30,3 +30,20 @@ The as? operator tries to cast a value to the specified type and returns null if
 
 Not-null assetions !!
 It converts any value to it's corresponding not-null type (String? -> String), If it is null then NullPointerException
+
+All the let function does is turn the object on which it’s called into a parameter of the lambda.
+
+Late Initialized property.
+Suppose there is a property in class which is null but that gets initialized at some point.
+You can mark such property as lateinit
+private lateinit var myService: MyService
+
+myService variable gets initialized after sometime, note that you don't have to mark it as MyService?
+
+Nullability and Extension functions
+When you declare an extension function for a nullable type (ending with ?), that
+means you can call this function on nullable values; and this in a function body can
+be null, so you have to check it explicitly.
+
+ONE MAJOR DIFFERENCE -
+In Java , this is always not-null but in Kotlin in extension function for a nullable type, this can be null
