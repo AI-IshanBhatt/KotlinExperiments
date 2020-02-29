@@ -1,0 +1,12 @@
+If your class is immutable, like Point in one of the earlier examples
+You should provide only operations that return a new value (such as plus).
+If you design a mutable class, like a builder, provide only plusAssign and similar operations.
+
+The Kotlin standard library supports both approaches for collections. The + and -
+operators always return a new collection. The += and -= operators work on mutable
+collections by modifying them in place, and on read-only collections by returning a
+modified copy.
+
+You can use the compareValuesBy function from the Kotlin standard
+library to implement the compareTo method easily and concisely. This function
+receives a list of callbacks that calculate values to be compared.
