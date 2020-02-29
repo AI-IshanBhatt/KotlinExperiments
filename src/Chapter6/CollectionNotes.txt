@@ -1,0 +1,96 @@
+Kotlin offers two variants of the collections,
+1) ReadOnly (Not to be confused with immutable)
+2) Mutable collection
+
+The regular kotlin.collections.Collection
+kotlin.collections.MutableCollection which extends the previous one
+
+Collection has methods like size(), contains() the methods which can't add/remove the data
+MutableCollection adds add(), addAll(), remove()
+
+The separation between read-only and mutable interfaces for collections makes it much easier to understand what’s happening
+with data in your program. If a function takes a parameter that is a Collection but not a MutableCollection,
+you know it’s not going to modify the collection, but only read data from it.
+
+KEEP IN MIND
+ReadOnly does not mean immutable.
+If there is a collection object (see object) and
+1st program has a Collection reference to it
+2nd programs has a MutableCollection reference to it.
+So, 2nd program can modify the collection object and those changes are visible in the 1st reference as well
+BECAUSE THE OBJECT BOTH WERE REFERRING TO WERE SAME
+
+HOW ALL THIS TRANSLATED TO JAVA
+Mutable interfaces correspond directly to the interfaces in the java.util package,
+whereas the read-only versions lack all the mutating methods.
+
+Let's if you are using java.util.ArrayList, java.util.HashSet
+Kotlin sees them as if they inherited from the Kotlin’s MutableList and MutableSet interfaces, respectively
+
+When you need to call a Java method and pass a collection as an argument, you
+can do so directly without any extra steps. For example, if you have a Java method that
+takes a java.util.Collection as a parameter, you can pass any Collection or
+MutableCollection value as an argument to that parameter.
+But be careful doing that, On Java side there is no distinction between ReadOnly and Mutable
+So, even if you pass read only Collection, if Java code modifies it , you can not stop it.
+
+The above stuff applies to nulls as well. Even if you had passed List<Int> which doesn't allow null to Java
+If Java code decides that it will add null, there's no way to detect that on Kotlin side , So BE CAREFUL
+
+TYPES DEFINED IN JAVA CODE ARE SEEN AS PLATFORM TYPE IN KOTLIN
+For platform types, Kotlin doesn't have the nullability information,
+so the compiler allows Kotlin code to treat them as either nullable or non-null.
+
+A collection with a platform type is essentially a collection of unknown mutability.
+Kotlin code can treat it as either read-only or mutable.
+
+ALL THE ABOVE STUFF WILL COME INTO PICTURE WHEN YOU IMPLEMENT INTERFACE, EXTEND CLASS DEFINED IN JAVA.
+You need to follow conventional wisdom when overriding the methods having PLATFORM TYPES.
+
+Kotlin compiler will not force you to use read-only OR mutable / non-nullable OR nullable, it's upto you
+
+Consider below examples:-
+/* Java */
+interface FileContentProcessor {
+    void processContents(File path,
+    byte[] binaryContents,
+    List<String> textContents);
+}
+
+Now in this case you need to figure out whether binaryContents can be null or not
+Whether the textContent formed from binary content can be null or not/ can be modified or not.
+A sample implementation can be found below
+
+class FileIndexer : FileContentProcessor {
+    override fun processContents (
+        path: File,
+        binaryContents: ByteArray?
+        textContents: List<String>?
+    )
+}
+
+EX-2
+Here the implementations of the interface parse some data from a text form into a list of objects,
+append those objects to the output list, and report errors detected when parsing by adding the messages to a separate list.
+
+interface DataParser<T> {
+    void parseData(String input, List<T> output, List<String> errors);
+}
+
+// That's how you implement typed interface
+class PersonParser: DataParser<Person> {
+    override fun parseData(input: String, output: MutableCollection<Person>, errors: MutableCollection<String?>)
+}
+
+=============================================ARRAY============================================
+To create an array in Kotlin, you have the following possibilities:
+1) The arrayOf function creates an array containing the elements specified as arguments to this function.
+2) The arrayOfNulls function creates an array of a given size containing null elements.
+Of course, it can only be used to create arrays where the element type is nullable.
+3) The Array constructor takes the size of the array and a lambda, and initializes each array element by calling the lambda.
+This is how you can initialize an array with a non-null element type without passing each element explicitly.
+
+Most common use case of using array in Kotlin is to convert list into array
+so that that can be passed to a function in Java which expects an array
+
+Kotlin provides all map, filter, sum, max operations on ARRAY as well
