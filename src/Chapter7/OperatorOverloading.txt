@@ -10,3 +10,19 @@ modified copy.
 You can use the compareValuesBy function from the Kotlin standard
 library to implement the compareTo method easily and concisely. This function
 receives a list of callbacks that calculate values to be compared.
+
+======================Accessing elements by index get and set===================================
+You can define multiple overloaded get methods with different parameter types.
+If your collection can be accessed with different key types.
+
+The rangeTo convention, First define the function and the we will see different parts of it.
+The library defines the rangeTo function that can be called on any comparable element
+
+operator fun <T: Comparable<T>> T.rangeTo(that: T): ClosedRange<T>
+
+<T: Comparable<T>> -> It is typed on any T which implements a comparable interface on T
+class ComparablePerson(private val firstName: String, private val lastName: String) : Comparable<ComparablePerson> in OverLoadEx.kt
+
+T.rangeTo -> Extension function on type/class T
+that T -> the ending of the range obviously it has to be same type/class T
+ClosedRange<T> -> Returns closed range typed T
