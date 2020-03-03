@@ -1,0 +1,27 @@
+Delegation: a design pattern where an object,instead of performing a task
+delegates that task to another helper object. The helper object is called a delegate.
+
+General Syntax
+class Foo {
+    var p: Type by Delegate()
+}
+
+The property p delegates the logic of its accessors to another object: in this case, a new instance of the Delegate class.
+The compiler creates a hidden helper property, initialized with the instance of the
+delegate object, to which the initial property p delegates.
+
+var p: Type
+    get() = delegate.getValue(this, <property>)
+    set(value: Type) = delegate.setValue(this, property, value)
+Something like private val delegate = Delegate()  // this delegate will be used by p
+
+By convention, the Delegate class must have getValue and setValue methods.
+
+See following in Temperature
+val agencies by lazy { loadTempAgencies(this) }
+agencies is a lazy property, lazy function takes a lambda as an argument.
+
+That can be any function returning something,
+Also note that it is not mandatory for loadTempAgencies to take this as an argument, It can be anything
+
+It will be initialized only when agencies is accessed on Temperature object

@@ -17,6 +17,7 @@ data class Person(val name: String, val age: Int? = null)
 
 // Cases in the when must be exhaustive
 // Also note that when is an expression not statement, that's why = is allowed
+// when CAN BE A STATEMENT AS WELL, HERE WE ARE USING THE RESULT OF when SO IT IS AN EXPRESSION NOT A STATEMENT
 fun getMnemonics(color: Color) =
     when(color) {
         Color.RED -> "Richard"
@@ -28,6 +29,7 @@ fun getMnemonics(color: Color) =
         Color.VIOLET -> "Vain"
     }
 
+// when CAN BE A STATEMENT AS WELL, HERE WE ARE USING THE RESULT OF when SO IT IS AN EXPRESSION NOT A STATEMENT
 fun getWarmth(color: Color) =
     when(color) {
         Color.RED, Color.ORANGE, Color.YELLOW -> "warm"

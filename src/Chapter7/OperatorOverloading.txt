@@ -26,3 +26,21 @@ class ComparablePerson(private val firstName: String, private val lastName: Stri
 T.rangeTo -> Extension function on type/class T
 that T -> the ending of the range obviously it has to be same type/class T
 ClosedRange<T> -> Returns closed range typed T
+
+======================Destructuring declarations and component functions============================
+For a data class, the compiler generates a componentN function for
+every property declared in the primary constructor.
+
+So, If you do val (a,b) = p in turn what gets called is
+val a = p.component1()
+val b = p.component2()
+
+// If you did not have data class you can do the same using below snippet, You can change logic off course.
+class Point(val x: Int, val y: Int) {
+    operator fun component1() = x
+    operator fun component2() = y
+}
+
+The standard library allows you to use this syntax to access the first five elements of a container.
+
+Ideally, if you want to return multiple values you can use Pair and Triple class from library

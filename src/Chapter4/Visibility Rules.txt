@@ -40,3 +40,8 @@ Sealed Classes
 Always having to add a default branch isn’t convenient. What’s more, if you add a
 new subclass, the compiler won’t detect that something has changed. If you forget to
 add a new branch, the default one will be chosen, which can lead to subtle bugs.
+
+// when CAN BE A STATEMENT AS WELL, HERE WE ARE USING THE RESULT OF when SO IT IS AN EXPRESSION NOT A STATEMENT.
+// AND AT THE TIME YOU ARE USING when AS STATEMENT THAT COVERING ALL BRANCHES BS WILL NOT APPLY
+
+https://proandroiddev.com/kotlin-when-statement-when-expression-oh-my-or-how-we-created-our-custom-detekt-rule-6f27e80bedaf

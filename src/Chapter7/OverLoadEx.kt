@@ -62,6 +62,22 @@ operator fun Rectangle.contains(point: Point): Boolean {
 }
 
 
+// Don't make it data class otherwise it becomes easier, let's use it as it is
+class NameComponents(val name: String, val extension: String) {
+    operator fun component1() = name
+    operator fun component2() = extension
+}
+
+fun splitFileName(fullName: String) : NameComponents {
+    val result = fullName.split(".", limit = 2)
+    return NameComponents(result[0], result[1])
+}
+
+fun printEntries(map: Map<String, String>) {
+    for ((k,v) in map)
+        println("$k -> $v")
+}
+
 fun main() {
     val p1 = Point(3,4)
     val p2 = Point(5,7)
@@ -94,4 +110,17 @@ fun main() {
     val rect = Rectangle(Point(10, 20), Point(50, 50))
     println(Point(20,30) in rect)  // Here, Point(20,30) is passed as an argument to function contains
     println(Point(5,5) in rect)
+    println()
+
+    println("Destructuring declarations and component functions")
+    val (xCo, yCo) = p3
+    println("For p3 X-Coordinate is $xCo and Y-Coordinate is $yCo")
+
+    // The below line is possible because we assign component1() and component2() in NameComponents
+    val (name, ext) = splitFileName("example.kt")
+    println("$name -> $ext")
+
+    println("USE OF DECONSTRUCT IN MAP")
+    val map = mapOf("Oracle" to "Java", "JetBrains" to "Kotlin")
+    printEntries(map)
 }

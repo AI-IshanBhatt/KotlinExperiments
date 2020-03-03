@@ -15,6 +15,7 @@ sealed class Expr {
 
 // When you use when with sealed classes and add a new subclass, the when expression
 // returning a value fails to compile, which points you to the code that must be changed.
+// when CAN BE A STATEMENT AS WELL, HERE WE ARE USING THE RESULT OF when SO IT IS AN EXPRESSION NOT A STATEMENT
 fun eval(e: Expr): Int =
     when(e) {
         is Expr.Num -> e.value
