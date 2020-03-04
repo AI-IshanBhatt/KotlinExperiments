@@ -1,0 +1,31 @@
+In Kotlin, functions can be represented as values using lambdas or function references.
+Therefore, a higher-order function is any function to which you can
+1) pass a lambda or a function reference as an argument,
+2)function which returns one, or both.
+
+For example, the filter standard-library function takes a predicate
+function as an argument and is therefore a higher-order function:
+
+list.filter { x > 0 }, others are map with, max, maxBy, sumBy
+
+In order to declare a function that takes a lambda as an argument, you need to know
+how to declare the type of the corresponding parameter.
+See:-
+    val sum = {x: Int, y:Int -> x + y}
+In the above snippet compiler infers that sum have function type.
+We did it before typing because Kotlin compiler can infer types for us.
+
+Under the hood, it is following
+val sum: (Int, Int) -> Int = {x,y -> x+y}
+
+The Unit return type can be omitted when you declare a regular function,
+but a function type declaration always requires an explicit return type.
+
+So when you create a normal function you may omit : Unit but when you are creating function type you have to give return type.
+
+So the syntax is
+val functionName: (TypeOfParam1, TypeOfParam2,....) -> ReturnType = {Param1, Param2 ... -> BODY}
+
+Similarly for nullable return types
+var canReturnNull: (Int, Int) -> Int? = { null }
+
