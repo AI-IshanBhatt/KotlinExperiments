@@ -1,0 +1,5 @@
+lambdas are normally compiled to anonymous classes.
+But that means every time you use a lambda expression, an extra class is created;
+and if the lambda captures some variables, then a new object is created on every
+invocation. This introduces runtime overhead, causing an implementation that uses a
+lambda to be less efficient than a function that executes the same code directly.

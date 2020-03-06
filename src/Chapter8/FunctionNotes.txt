@@ -21,6 +21,11 @@ val sum: (Int, Int) -> Int = {x,y -> x+y}
 The Unit return type can be omitted when you declare a regular function,
 but a function type declaration always requires an explicit return type.
 
+KEEP IN MIND
+If you’re tempted to copy and paste a piece of the code,
+it’s likely that the duplication can be avoided.
+With lambdas, you can extract not only the data that’s repeated, but the behavior as well.
+
 So when you create a normal function you may omit : Unit but when you are creating function type you have to give return type.
 
 So the syntax is
