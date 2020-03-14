@@ -3,3 +3,91 @@ But that means every time you use a lambda expression, an extra class is created
 and if the lambda captures some variables, then a new object is created on every
 invocation. This introduces runtime overhead, causing an implementation that uses a
 lambda to be less efficient than a function that executes the same code directly.
+
+When you declare a "function" as inline, its body is inlined—in other words, it’s substituted
+directly into places where the function is called instead of being invoked normally.
+
+inline fun <T> synchronized(lock: Lock, action: () -> T): T {
+    lock.lock()
+    try {
+        return action()
+    }
+    finally {
+        lock.unlock()
+    }
+}
+
+SYntax for calling it is very similar
+val l = Lock()
+synchronized(l) {
+    // The action lambda which takes no argument and returns T
+}
+
+CALLING synchronized with Lambda and Function type to see how it works
+1) Lambda
+synchronized(l) {
+    println("ACTION")
+}
+
+In this case function synchronized and the lambda are both inlined.
+The bytecode generated from the lambda becomes part of the definition of the calling function and isn’t wrapped
+in an anonymous class implementing a function interface.
+
+2) FUnction type
+val bpdy = () -> Unit
+synchronized(l, body)
+
+In this case, the lambda’s code isn’t available at the site where the inline function is
+called, and therefore it isn’t inlined. Only the body of the synchronized function is
+inlined; the lambda is called as usual.
+
+RESTRICTIONS ON INLINING
+Not every function that uses lambda can be inlined.
+When the function is inlined, the body of the lambda expression that’s passed
+as an argument is substituted directly into the resulting code.
+
+If this parameter is called, such code can be easily inlined. But if the parameter is stored somewhere for
+further use, the code of the lambda expression can’t be inlined,because there must be an object that contains this code.
+
+Let's check the map function defined on sequence
+fun <T, R> Sequence<T>.map(transform: (T) -> R): Sequence<R> {
+    return TransformingSequence(this, transform)
+}
+
+Here the transform argument here is not called directly, but passed on further so it can not be inlined
+
+INLINING COLLECTION OPERATIONS
+map, filter functions are inlined for list, set and their mutable variations
+if you do people.filter {it.age > 30}.map(Person::name)
+
+Once again, both filter and map are declared as inline, so their bodies are inlined, and no extra
+classes or objects are created. But the code creates an intermediate collection to store
+the result of filtering the list. The code generated from the filter function adds elements
+to that collection, and the code generated from map reads from it.
+
+If the number of elements to process is large, and the overhead of an intermediate
+collection becomes a concern, you can use a sequence instead, by adding an
+asSequence call to the chain. But as you saw in the previous section, lambdas used to
+process a sequence aren’t inlined.
+
+RULE OF THUMB -> USE MAP,SET COLLECTION FOR SMALLER SIZE, SEQUENCE FOR LARGER SIZE
+
+WHEN TO USE INLINE?
+Using the inline keyword is likely to improve performance only with functions that take lambdas as arguments;
+all other cases require additional measuring and investigation.
+
+inlining lets you use features that are impossible to make work with regular lambdas, such as non-local returns.
+
+USING INLINED LAMBDAS FOR RESOURCE MANAGEMENT
+The use function is an extension function called on a closable resource; it receives a
+lambda as an argument. The function calls the lambda and ensures that the resource
+is closed, regardless of whether the lambda completes normally or throws an exception.
+Of course, the use function is inlined, so its use doesn’t incur any performance
+overhead.
+
+fun readFirstLineFromFile(path: String): String {
+    BufferedReader(FileReader(path)).use { br ->
+        return br.readLine()
+    }
+}
+
