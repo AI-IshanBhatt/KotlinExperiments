@@ -1,0 +1,11 @@
+If you use the return keyword in a lambda, it returns from the function in which you called
+the lambda, not just from the lambda itself. Such a return statement is called a nonlocal
+return, because it returns from a larger block than the block containing the
+return statement.
+
+Note that the return from the outer function is possible only if the function that takes
+the lambda as an argument is inlined. (foreach is inlined)
+
+Using the return expression in lambdas passed to non-inline functions isn’t allowed.
+A non-inline function can save the lambda passed to it in a variable and execute it later, when the function
+has already returned, so it’s too late for the lambda to affect when the surrounding function returns.
