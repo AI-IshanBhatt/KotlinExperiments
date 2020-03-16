@@ -1,0 +1,5 @@
+https://ivanmorgillo.com/2020/03/11/can-i-loop-over-a-kotlin-sealed-class/
+
+https://medium.com/androiddevelopers/coroutines-first-things-first-e6187bf3bb21
+
+https://medium.com/@akperkins1/smart-casts-via-assertions-kotlin-contracts-fd737a92013b
