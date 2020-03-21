@@ -1,0 +1,27 @@
+Reified type parameters allow you to refer at runtime to the specific types used as
+type arguments in an inline function call.
+(For normal classes or functions, this isn’t possible, because type arguments are erased at runtime.)
+
+Declaration-site variance lets you specify whether a generic type with a type argument
+is a subtype or a supertype of another generic type with the same base type and a different type argument.
+For example, it regulates whether it’s possible to pass arguments of type List<Int> to functions expecting List<Any>.
+Here type arguments ar Int, Any , Base Type is List
+
+Use-site variance = Java Wild-Cards
+
+TYPE in CLASS
+See the example of
+class CountingSet<T> in ByExample.kn in Chapter 4
+
+Or You can do
+interface List<T> {
+    operator fun get(index: Int) : T
+}
+
+Type parameter constraints let you restrict the types that can be used as type arguments for a class or function.
+
+WANTING TO DEFINE SOMETHING ON ALL NYMBERS ? iT IS difficult.
+https://discuss.kotlinlang.org/t/how-to-write-generic-functions-for-all-numeric-types/7367/9
+https://stackoverflow.com/questions/46803331/sharing-implementations-of-extension-functions-between-float-and-double-in-kotli
+
+A LOT OF SO LINKS WILL BE CHECKED IN THIS GENERIC CHAPTER
