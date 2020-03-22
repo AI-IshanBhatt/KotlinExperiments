@@ -7,6 +7,9 @@ lambda to be less efficient than a function that executes the same code directly
 When you declare a "function" as inline, its body is inlined—in other words, it’s substituted
 directly into places where the function is called instead of being invoked normally.
 
+Making the function inline may improve performance if this function uses lambdas as arguments: the lambda
+code can be inlined as well, so no anonymous class will be created.
+
 inline fun <T> synchronized(lock: Lock, action: () -> T): T {
     lock.lock()
     try {
@@ -91,3 +94,5 @@ fun readFirstLineFromFile(path: String): String {
     }
 }
 
+Marking a function as inline only has performance benefits when the function has parameters of the function type and
+the corresponding arguments—lambdas—are inlined together with the function.

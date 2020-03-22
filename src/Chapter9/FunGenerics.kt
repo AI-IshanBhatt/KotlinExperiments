@@ -35,6 +35,8 @@ fun <T: Number> List<T>.xyz() : Unit {
 //    Here All can be interface, with at max only one class allowed , WHY ? Need to debug
 //}
 
+
+
 fun main() {
 
     val elements = ('a'..'z').toList()

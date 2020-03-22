@@ -1,3 +1,6 @@
+If you declare  List<Any> then,
+Base Class is List, Type class is Int
+
 Reified type parameters allow you to refer at runtime to the specific types used as
 type arguments in an inline function call.
 (For normal classes or functions, this isn’t possible, because type arguments are erased at runtime.)
@@ -17,11 +20,21 @@ Or You can do
 interface List<T> {
     operator fun get(index: Int) : T
 }
-
 Type parameter constraints let you restrict the types that can be used as type arguments for a class or function.
+
+fun <T: Comparable<T>> -> Any T which implements Comparable<T> interface
 
 WANTING TO DEFINE SOMETHING ON ALL NYMBERS ? iT IS difficult.
 https://discuss.kotlinlang.org/t/how-to-write-generic-functions-for-all-numeric-types/7367/9
 https://stackoverflow.com/questions/46803331/sharing-implementations-of-extension-functions-between-float-and-double-in-kotli
 
 A LOT OF SO LINKS WILL BE CHECKED IN THIS GENERIC CHAPTER
+-----------------------------------------------------------------------------------------------
+Kotlin generics are erased at runtime, which means if you have an instance of a generic class,
+you can’t find out the type arguments used when the instance was created.
+
+When you call a generic function, in its body you can’t determine the type arguments it was invoked with
+fun <T> isA(value: Any) = value is T
+Error: Cannot check for instance of erased type: T
+
+refy - Make something more concrete or real
