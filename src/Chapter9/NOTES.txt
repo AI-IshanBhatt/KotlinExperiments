@@ -38,3 +38,15 @@ fun <T> isA(value: Any) = value is T
 Error: Cannot check for instance of erased type: T
 
 refy - Make something more concrete or real
+
+WHAT YOU CAN DO WITH REFIED TYPES-
+In type checks and casts (is, !is, as, as?)
+To use the Kotlin reflection APIs, as we’ll discuss in chapter 10 (::class)
+To get the corresponding java.lang.Class (::class.java)
+As a type argument to call other functions.
+
+WHAT YOU CAN NOT DO WITH REFIED TYPES-
+Create new instances of the class specified as a type parameter
+Call methods on the companion object of the type parameter class
+Use a non-reified type parameter as a type argument when calling a function with a reified type parameter
+Mark type parameters of classes, properties, or non-inline functions as reified

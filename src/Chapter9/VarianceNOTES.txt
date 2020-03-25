@@ -1,0 +1,86 @@
+The concept of variance describes how types with the same base type and different type
+arguments relate to each other: for example, List<String> and List<Any>.
+
+A type B is a subtype of a type A if you can use the value of the type B whenever a value of the type A is required.
+
+Int is subtype of Number
+SO following is fine
+
+Very similar to what you know about JAVA, Reference of Supertype, Object of subtype
+In Kotlin world, value of type A and B is mentioned
+fun test(i: Int) {
+    val n: Number = i
+}
+
+NOTE:-
+In case of nullable types, the nullable type is a supertype and it's corresponding non-null is subtype.
+val s: String = "S"
+val t: String? = s // This is allowed but not vice-versa
+
+COVARIANCE:-
+A covariant class is a generic class (we’ll use Producer<T> as an example) for which
+the following holds: Producer<A> is a subtype of Producer<B> if A is a subtype of B.
+We say that the subtyping is preserved.
+Producer<Cat> is a subtype of Producer<Animal> as Cat is a subtype of Animal
+
+See the following snippets:-
+open class Animal {
+    fun feed() { ... }
+}
+
+class Herd<T : Animal> {  // NOTE that the type parameter is not declared as covariant
+    val size: Int get() = ...
+    operator fun get(i: Int): T { ... }
+}
+
+fun feedAll(animals: Herd<Animal>) {
+    for (i in 0 until animals.size) {
+        animals[i].feed()
+    }
+}
+
+class Cat : Animal() {
+    fun cleanLitter() { ... }
+}
+
+fun takeCareOfCats(cats: Herd<Cat>) {
+    for (i in 0 until cats.size) {
+        cats[i].cleanLitter()
+        // feedAll(cats)  //Error: inferred type is Herd<Cat>, but Herd<Animal> was expected
+    }
+}
+
+The herd of cats isn’t a subclass of the herd of animals.
+As you can see Herd is almost like list (immutable one), so it does not allow client to change or add anything
+You can make it covariant and un-comment the feedAll.
+
+class Herd<out T: Animal>
+
+You can not make any type covariant, It really depends on possible use of the type in the class.
+To guarantee type safety, it can be used only in so-called out positions, meaning the
+class can produce values of type T but not consume them.
+
+If any function in the class has T as return type -> The type is used as out position. (Produces)
+If any function takes argument of type T -> The type is used as in position. (Consumes)
+
+The out keyword on a type parameter of the class requires that all methods using T
+have T only in out positions and not in in positions. This keyword constrains possible
+use of T, which guarantees safety of the corresponding subtype relation.
+(Which is satisfied in Herd)
+
+To reiterate, the out keyword on the type parameter T means two things:
+1) The subtyping is preserved (Producer<Cat> is a subtype of Producer<Animal>).
+2) T can be used only in out positions.
+
+Let's consider the case of List interface and dissect the stuff.
+interface List<out T> : Collection<T> {  // covariant(out) on type T which extends Collection<T>
+    operator fun get(index: Int): T   // T as return type , as out position
+    fun subList(fromIndex: Int, toIndex: Int): List<T>  // Here T is still as out position
+}
+
+You can not declare mutableList covariant on type T, as it has a method fun add(element: T) making T used as in param.
+Compiler throws - Type parameter T is declared as 'out' but occurs in 'in' position.
+Constructor parameters are in neither the in nor the out position.
+
+Position rules cover only the externally visible (public, protected, and internal) API of a class.
+Parameters of private methods are in neither the in nor the out position.
