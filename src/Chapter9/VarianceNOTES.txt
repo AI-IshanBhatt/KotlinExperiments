@@ -84,3 +84,57 @@ Constructor parameters are in neither the in nor the out position.
 
 Position rules cover only the externally visible (public, protected, and internal) API of a class.
 Parameters of private methods are in neither the in nor the out position.
+
+CONTRAVARIANCE:
+A class that is contravariant on the type parameter is a generic class (let’s consider Consumer<T> as an example)
+for which the following holds: Consumer<A> is a subtype of Consumer<B> if B is a subtype of A.
+The type arguments A and B changed places, so we say the subtyping is reversed.
+For example, Consumer<Animal> is a subtype of Consumer<Cat>.
+
+The in keyword means values of the corresponding type are passed in to methods of this class and consumed by those methods
+
+A class or interface can be covariant on one type parameter and contravariant on
+another.
+
+interface Function1<in P, out R> {
+    operator fun invoke(p: P) : R
+}
+We know it is a functional interface (P)->R,
+The subtyping for the function type is reversed for its first type argument and preserved for the second.
+Function (P) -> R , is contravariant on it's argument type and covariant on it's return type.
+
+// I hope you understand that f here is a functional type
+fun enumerateCats(f: (Cat) -> Number) {...}
+fun Animal.getIndex(): Int = ...
+enumerateCats(Animal::getIndex)
+
+A lot to look for here,
+enumerateCats' functional interface is contravariant on Cat and covariant on Number
+As we pass Animal::getIndex to it
+Animal is supertype of Cat, As the argument is contravariant, passing Animal is allowed
+Number is supertype of Int, return type of Int is allowed
+
+USE SITE VARIANCE vs DECLARATION SITE VARIANCE
+The ability to specify variance modifiers on class declarations is convenient because
+the modifiers apply to all places where the class is used. This is called declaration-site variance.
+If you’re familiar with Java’s wildcard types (? extends and ? super), you’ll
+realize that Java handles variance differently. In Java, every time you use a type with a
+type parameter, you can also specify whether this type parameter can be replaced with
+its subtypes or supertypes. This is called use-site variance.
+
+A CONCRETE EXAMPLE:-
+Function<? super T, ? extends R>. If you examine the source code of the Java 8 standard library,
+you’ll find wildcards on every use of the Function interface.
+
+public interface Stream<T> {
+    <R> Stream<R> map(Function<? super T, ? extends R> mapper);
+}
+As you can see here, the argument of map, you have to use the wildcards for Function type,
+Wouldn't it be cool if we define such thing at the declaration of Function interface?
+A you can see on line 107, you just started using f (Functional Type) without explicitly declaring it's types.
+Because it is already declared in line 99
+
+When the implementation of a function only calls methods that have the type parameter in the out (or only in
+the in) position, you can take advantage of it and add variance modifiers to the particular
+usages of the type parameter in the function definition.
+See fun copyVar in Variance.kt
